@@ -2,56 +2,41 @@
 const padDescription = document.querySelector("#display")
 const drumPads = document.querySelectorAll(".drum-pad")
 const keyToPadMap = {
-    'KeyQ' : 'pad-Q',
-    'KeyW' : 'pad-W',
-    'KeyE' : 'pad-E',
-    'KeyA' : 'pad-A',
-    'KeyS' : 'pad-S',
-    'KeyD' : 'pad-D',
-    'KeyZ' : 'pad-Z',
-    'KeyX' : 'pad-X',
-    'KeyC' : 'pad-C'
+    'q' : 'pad-Q',
+    'w' : 'pad-W',
+    'e' : 'pad-E',
+    'a' : 'pad-A',
+    's' : 'pad-S',
+    'd' : 'pad-D',
+    'z' : 'pad-Z',
+    'x' : 'pad-X',
+    'c' : 'pad-C'
 }
+
+const playAndDisplay = (padElement) => {
+    const sound = padElement.querySelector('audio');
+    sound.pause();
+    sound.currentTime = 0;
+    sound.play();
+    padDescription.textContent = padElement.getAttribute("label");
+    padElement.classList.add("active")
+    setTimeout(() => {
+        padElement.classList.remove("active");
+    },100);
+};
 
 drumPads.forEach(pad => {
     pad.addEventListener("click",(event) => {
-        event.currentTarget.querySelector('audio').play()
-        padDescription.textContent = event.currentTarget.getAttribute("label")
+        playAndDisplay(event.currentTarget);
     })
 })
 
 document.addEventListener('keydown',(event) => {
-    const padID = keyToPadMap[event.code]
+    const padID = keyToPadMap[event.key] //had to change this from event.code to event.key to allow for freeCodeCamp to pass test 8
     if (padID) {
         const padPlay = document.querySelector(`#${padID}`)
-        padPlay.querySelector('audio').play()
-        padDescription.textContent = padPlay.getAttribute("label")
+        if (padPlay) {
+            playAndDisplay(padPlay)
+        }
     }
 })
-
-/*
-const playSound = (event) => {
-    event.currentTarget.querySelector('audio').play()
-
-}
-
-padQ.addEventListener("click",playSound)
-
-
-
-
-padQ.addEventListener("click", (event) => {
-    event.currentTarget.querySelector('audio').play() 
-})
-
-const padQ = document.querySelector("#pad-Q")
-const padW = document.querySelector("#pad-W")
-const padE = document.querySelector("#pad-E")
-const padA = document.querySelector("#pad-A")
-const padS = document.querySelector("#pad-S")
-const padD = document.querySelector("#pad-D")
-const padZ = document.querySelector("#pad-Z")
-const padX = document.querySelector("#pad-X")
-const padC = document.querySelector("#pad-C")
-
-*/
