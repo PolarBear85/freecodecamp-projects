@@ -1,0 +1,20 @@
+** start of script.js **
+
+function mutation(array) {
+    let first = array[0].toLowerCase();
+    let second = array[1].toLowerCase().split("");
+
+    for (let count = 0; count<=second.length-1; count++) {
+        if (first.includes(second[count])!== true) {
+            return false;
+        }
+        
+    }
+    return true;
+
+
+    
+}
+
+** end of script.js **
+
