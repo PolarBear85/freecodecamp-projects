@@ -10,8 +10,9 @@ const bookmarkURL = document.querySelector('#url')
 const bookmarkListSection = document.querySelector('#bookmark-list-section')
 const viewCategoryBtn = document.querySelector('#view-category-button')
 const categoryList = document.querySelector('#category-list')
+const closeListBtn = document.querySelector('#close-list-button')
+const deleteBookmarkBtn = document.querySelector('#delete-bookmark-button')
 
-const bookmarksArr = getBookmarks()
 
 
 
@@ -27,8 +28,32 @@ function getBookmarks() {
         return []
     }
 
-    return Array.isArray(retrievedBookmarks) ? retrievedBookmarks : []
+    if (Array.isArray(retrievedBookmarks)) {
+        const objectCheck = retrievedBookmarks.every(bookmark => {
+            const isObject = (
+                typeof bookmark === 'object' && 
+                bookmark !==null && 
+                !Array.isArray(bookmark)
+            );
 
+        const propCheck = (
+            'name' in bookmark &&
+            'category' in bookmark &&
+            'url' in bookmark
+        );
+
+        return isObject && propCheck;
+        })
+        
+
+        if(objectCheck) {
+            return retrievedBookmarks
+        } else {
+            return [];
+        }
+    }
+
+    return [];
 }
 
 
@@ -47,13 +72,12 @@ closeFormBtn.addEventListener('click', () => {
 })
 
 addBookmarkFormBtn.addEventListener('click', () => {
+    const bookmarksArr = getBookmarks() //removed global, added local
     const newName = bookmarkName.value
-    console.log(newName)
     const newURL = bookmarkURL.value;
     const newCategory = categoryDropDown.value
 
-    console.log(newName,newURL,newCategory)
-    bookmarksArr.push({name:newName,category:newCategory,url:newURL})
+    bookmarksArr.push({name:newName,category:newCategory,url:newURL}) //push with new ID
     const updatedBookmarks = JSON.stringify(bookmarksArr)
     localStorage.setItem('bookmarks', updatedBookmarks)
     bookmarkName.value = ''
@@ -67,49 +91,61 @@ function displayOrHideCategory() {
 }
 
 viewCategoryBtn.addEventListener('click', ()=> {
-    const selectedCategory = categoryDropDown.value;
-    categoryName.textContent = selectedCategory;
     displayOrHideCategory()
-    if (!bookmarksArr.some(bookmark => bookmark.category === selectedCategory)) {
-        categoryList.innerHTML='<p>No Bookmarks Found</p>'
-    } else {
-        let htmlString = ''
+    displayBookmarks()
 
-        bookmarksArr.forEach(bookmark => {
-            if (bookmark.category === selectedCategory) {
-                htmlString += `<input type='radio' id="${bookmark.name}" value="${bookmark.name}" name='bookmarks'><label for="${bookmark.name}"><a href="${bookmark.url}">${bookmark.name}</a></label>`
-            }
-        console.log(htmlString)
-        })
-        categoryList.innerHTML = htmlString
+})
+
+closeListBtn.addEventListener('click', ()=> {
+    displayOrHideCategory()
+})
+
+deleteBookmarkBtn.addEventListener('click', () => {
+    const bookmarksArr = getBookmarks() //deleted global, added local
+    console.log(bookmarksArr)
+
+    const selectedCategory = categoryDropDown.value;
+    const toBeDeleted = document.querySelector(`input[name="${selectedCategory}"]:checked`)
+
+    if(!toBeDeleted) {
+        console.warn("Please select a bookmark to be deleted");
+        return;
     }
 
+    const updatedArr = bookmarksArr.filter(bookmark => {
+
+        return (
+            bookmark.name !== toBeDeleted.value ||
+            bookmark.category !== toBeDeleted.name
+        )
+    })
+    console.log(updatedArr)
+
+    localStorage.setItem('bookmarks', JSON.stringify(updatedArr))
+    displayBookmarks()
 
 })
 
 
 
 
+function displayBookmarks() {
+    const bookmarksArr = getBookmarks() //deleted global, added local
+    const selectedCategory = categoryDropDown.value;
+    categoryName.textContent = selectedCategory;
+    categoryList.innerHTML=""
+    let htmlString = ""
 
+    bookmarksArr.forEach(bookmark => {
+        if (bookmark.category === selectedCategory) {
+            htmlString += `<label for="${bookmark.name}"><input type="radio" id="${bookmark.name}" value="${bookmark.name}" name="${selectedCategory}" /><a href="${bookmark.url}">${bookmark.name}</a></label>`;
+        }
 
+    })
 
-/*function getBookmarks() {
-
-    const retrievedBookmarks = JSON.parse(localStorage.getItem('bookmarks')) || []
-    if (retrievedBookmarks.length = null) {
-        return []
+    if (htmlString === "") {
+        categoryList.innerHTML=`<p>No Bookmarks Found</p>`
+    } else {
+        categoryList.innerHTML = htmlString
     }
-
-
-    return retrievedBookmarks
 }
-
-function CreateRadio (name, url) {
-    return `<input type='radio' id="${name}" value="${name}" name='bookmarks'/><label for="${name}"><a href="${url}">${name}</a></label>`
-}
-
-
-//const getBookmarks = () => JSON.parse(localStorage.getItem('bookmarks')) || []  THIS IS A USEFUL ARROW FUNCTION IF NEEDED
-
-
-*/
