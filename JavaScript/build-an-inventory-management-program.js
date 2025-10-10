@@ -1,4 +1,4 @@
-** start of script.js **
+
 
 let inventory =[];
 
@@ -52,8 +52,4 @@ function removeProduct(productName, productQuantity) {
   }
 
 
-
-
-
-** end of script.js **
 

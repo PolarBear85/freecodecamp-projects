@@ -1,4 +1,4 @@
-** start of script.js **
+
 
 function largestOfAll(masterArray) {
   let resultArray = [];
@@ -35,6 +35,4 @@ console.log(result2);
 console.log(result3);
 console.log(result4);
 
-
-** end of script.js **
 
