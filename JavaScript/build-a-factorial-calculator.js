@@ -1,4 +1,4 @@
-** start of script.js **
+
 
 //let num = Math.floor(Math.random()*20)+1
 
@@ -18,5 +18,5 @@ let factorial = factorialCalculator(num);
 let resultMsg = `Factorial of ${num} is ${factorial}`;
 console.log(resultMsg);
 
-** end of script.js **
+
 
