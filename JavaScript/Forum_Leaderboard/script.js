@@ -36,5 +36,49 @@ function timeAgo(isoDate) {
 
 }
 
+//console.log(timeAgo(new Date("01-01-2011")))
 
-console.log(timeAgo(new Date("01-01-2011")))
+
+function viewCount(views) {
+  if (views >= 1000) {
+    return `${Math.floor(views/1000)}k`
+  }
+  return views
+}
+
+//console.log(viewCount(2730))
+
+function forumCategory(id) {
+  let className = "general"
+  let category = "General"
+  if (Object.hasOwn(allCategories,id)) {
+    const categoryInfo = allCategories[id]
+    className = categoryInfo.className
+    category = categoryInfo.category
+  }
+  return `<a class="category ${className}" href="${forumCategoryUrl}${className}/${id}">${category}</a>`
+  
+}
+//console.log(forumCategory(299))
+
+function avatars (posters,users) {
+  if (!Array.isArray(posters) || !Array.isArray(users)) {
+    return `Not arrays`
+  }
+  const imgArr = posters.map (poster => {
+    const thisUser = poster.user_id
+    const matchingUser = users.find(user => user.id === thisUser)
+    if (matchingUser) {
+      const imgPath = matchingUser.avatar_template.replace("{size}",30)
+      return `<img src="${avatarUrl}${imgPath}" alt="${matchingUser.name}"/>`
+    }
+    return ""
+
+  })
+
+  console.log(imgArr.join(""))
+  return imgArr.join("")
+  
+}
+
+
