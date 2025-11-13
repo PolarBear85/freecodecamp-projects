@@ -15,6 +15,8 @@ const allCategories = {
   560: { category: 'Backend Development', className: 'backend' }
 };
 
+const postsContainer = document.querySelector("#posts-container")
+
 function timeAgo(isoDate) {
   const now = new Date(Date.now())
   const past = new Date(isoDate)
@@ -36,7 +38,6 @@ function timeAgo(isoDate) {
 
 }
 
-//console.log(timeAgo(new Date("01-01-2011")))
 
 
 function viewCount(views) {
@@ -46,7 +47,6 @@ function viewCount(views) {
   return views
 }
 
-//console.log(viewCount(2730))
 
 function forumCategory(id) {
   let className = "general"
@@ -59,7 +59,6 @@ function forumCategory(id) {
   return `<a class="category ${className}" href="${forumCategoryUrl}${className}/${id}">${category}</a>`
   
 }
-//console.log(forumCategory(299))
 
 function avatars (posters,users) {
   if (!Array.isArray(posters) || !Array.isArray(users)) {
@@ -75,10 +74,50 @@ function avatars (posters,users) {
     return ""
 
   })
-
-  console.log(imgArr.join(""))
   return imgArr.join("")
   
 }
 
 
+function showLatestPosts(object) {
+  const users = object.users;
+  const topics = object.topic_list.topics;
+  const htmlArr = [];
+
+  topics.forEach(topic => {
+    const id = topic.id;
+    const title = topic.title;
+    const views = topic.views;
+    const postsCount = topic.posts_count;
+    const slug = topic.slug;
+    const posters = topic.posters;
+    const categoryId = topic.category_id;
+    const bumped = topic.bumped_at;
+    const forumCat = forumCategory(categoryId)
+    const avatarImgs = avatars(posters,users)
+    const timePassed = timeAgo(bumped)
+
+
+
+
+
+    htmlArr.push(`<tr><td><a class="post-title" href="${forumTopicUrl}${slug}/${id}">${title}</a>${forumCat}</td><td><div class="avatar-container">${avatarImgs}</div></td><td>${postsCount-1}</td><td>${views}</td><td>${timePassed}</td></tr>`);
+
+  })
+  console.log("This is a single html return")
+  console.log(htmlArr[0])
+
+  postsContainer.innerHTML = htmlArr.join("")
+}
+
+
+async function fetchData() {
+  console.log("LETS TRY THIS")
+  try {
+    fetch(forumLatest)
+      .then(response => response.json())
+
+  } catch (error) {
+    console.log("error")
+  }
+}
