@@ -116,8 +116,10 @@ async function fetchData() {
   try {
     fetch(forumLatest)
       .then(response => response.json())
+      return response
 
   } catch (error) {
     console.log("error")
   }
 }
+
