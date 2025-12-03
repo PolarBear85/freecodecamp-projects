@@ -1,4 +1,4 @@
-** start of script.js **
+
 
 function largestPrimeFactor(number) {  const factorArr = []
   let thisNumber = number //take the number
@@ -31,5 +31,4 @@ function largestPrimeFactor(number) {  const factorArr = []
 largestPrimeFactor(600851475143);
 
 
-** end of script.js **
 
