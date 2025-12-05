@@ -1,0 +1,36 @@
+function difference(arr1, arr2) {
+
+  const diff = []
+
+  arr1.forEach(item => {
+    if(!arr2.includes(item)) {
+      diff.push(item)
+    }
+  })
+
+  arr2.forEach(item => {
+    if(!arr1.includes(item)) {
+      diff.push(item)
+    }
+  })
+
+
+  console.log(diff)
+
+  return diff;
+}
+
+difference([1, 3, 5, 7, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9])
+
+/*
+Symmetric Difference
+Given two arrays, return a new array containing the symmetric difference of them.
+
+The symmetric difference between two sets is the set of values that appear in either set, but not both.
+Return the values in the order they first appear in the input arrays.
+
+Tests
+Passed:1. difference([1, 2, 3], [3, 4, 5]) should return [1, 2, 4, 5].
+Passed:2. difference(["a", "b"], ["c", "b"]) should return ["a", "c"].
+Passed:3. difference([1, "a", 2], [2, "b", "a"]) should return [1, "b"].
+Passed:4. difference([1, 3, 5, 7, 9], [1, 2, 3, 4, 5, 6, 7, 8, 9]) should return [2, 4, 6, 8].*/
