@@ -8,12 +8,14 @@
     <body>
         <div id="weather-box">
             <div id="weather-info">
-                <div id="location">
-
-                </div>
-                <div id="headline-info">
-                </div>
-                <div id="detail-info">
+                <img id="weather-icon"/>
+                <span id="main-temperature"></span>
+                <span id="feels-like"></span>
+                <span id="humidity"></span>
+                <span id="wind"></span>
+                <span id="wind-gust"></span>
+                <span id="weather-main"></span>
+                <span id="location"></span>
                 </div>
             </div>
 
@@ -22,14 +24,16 @@
 
         <div id="control-box">
             <span>Weather for:</span>
-            <select id="location">
+            <select id="target">
                 <option value></option>
-                <option value="leeds">Leeds</option>
-                <option value="manchester">Manchester</option>
+                <option value="new york">New York</option>
+                <option value="los angeles">Los Angeles</option>
+                <option value="chicago">Chicago</option>
+                <option value="paris">Paris</option>
+                <option value="tokyo">Tokyo</option>
                 <option value="london">London</option>
-                <option value="birmingham">Birmingham</option>
             </select>
-            <button id="get-weather">Get Weather</button>
+            <button id="get-weather-btn">Get Weather</button>
         </div>
 
 
