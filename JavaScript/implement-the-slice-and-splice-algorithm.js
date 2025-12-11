@@ -1,4 +1,4 @@
-** start of script.js **
+
 
 function frankenSplice(array1,array2,index) {
     
@@ -16,5 +16,4 @@ function frankenSplice(array1,array2,index) {
 }
 
 
-** end of script.js **
 

@@ -1,4 +1,4 @@
-** start of script.js **
+
 
 const obj1 = {
     category: "Science",
@@ -57,5 +57,4 @@ function getResults(selectedQuestion, selectedAnswer) {
     }
 }
 
-** end of script.js **
 

@@ -1,4 +1,4 @@
-** start of script.js **
+
 
 function chunkArrayInGroups(array,size) {
     let result = [];
@@ -12,5 +12,4 @@ function chunkArrayInGroups(array,size) {
 
 }
 
-** end of script.js **
 

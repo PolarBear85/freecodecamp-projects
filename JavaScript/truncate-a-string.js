@@ -1,4 +1,4 @@
-** start of script.js **
+
 
 function truncateString(string, number) {
     if (string.length <= number) {
@@ -23,6 +23,4 @@ console.log(truncateString("A-",1));
 
 console.log(truncateString("Absolutely Longer", 2));
 
-
-** end of script.js **
 

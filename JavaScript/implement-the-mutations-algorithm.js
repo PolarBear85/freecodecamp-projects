@@ -1,4 +1,4 @@
-** start of script.js **
+
 
 function mutation(array) {
     let first = array[0].toLowerCase();
@@ -16,5 +16,4 @@ function mutation(array) {
     
 }
 
-** end of script.js **
 
