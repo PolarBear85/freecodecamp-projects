@@ -1,20 +1,18 @@
 function isBalanced(s) {
 
-  const regex = /([aeiou])/gi
-  const oddLength = s.length % 2 ? true : false 
+  const regex = /[aeiou]/gi
 
-  const midpoint = s.length / 2
+  const midpoint = Math.floor(s.length / 2)
 
-  const firstSplit = oddLength ? Math.floor(midpoint) : midpoint
+  const firstHalf = s.slice(0,midpoint)
 
-  const secondSplit = oddLength ? Math.floor(midpoint)+1 : midpoint
+  const secondHalf = s.slice(-midpoint)
 
-const firstHalf = s.substring(0,firstSplit)
-const secondHalf = s.substring(secondSplit)
+console.log(firstHalf,secondHalf)
 
 
-const firstMatch = firstHalf.match(regex) ? firstHalf.match(regex) : []
-const secondMatch = secondHalf.match(regex) ? secondHalf.match(regex) : []
+const firstMatch = firstHalf.match(regex) || []
+const secondMatch = secondHalf.match(regex) || []
 
 
 return firstMatch.length === secondMatch.length
