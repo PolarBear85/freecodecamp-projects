@@ -1,0 +1,38 @@
+def find_target(arr, target):
+
+    for index,number in enumerate(arr):
+        
+        
+        num_to_find = target - number
+        print(index,number)
+        try:
+            found_index = arr[index+1:].index(num_to_find)+ index+1
+        except:
+            found_index = None
+
+        if found_index==None:
+            continue
+        else:
+            return [index,found_index]
+
+    return "Target not found"
+
+
+
+
+find_target([1, 3, 5, 6, 7, 8], 15)
+
+'''
+Targeted Sum
+
+Given an array of numbers and an integer target, find two unique numbers in the array that add up to the target value. Return an array with the indices of those two numbers, or "Target not found" if no two numbers sum up to the target.
+
+    The returned array should have the indices in ascending order.
+
+Tests
+
+    Waiting: 1. find_target([2, 7, 11, 15], 9) should return [0, 1].
+    Waiting: 2. find_target([3, 2, 4, 5], 6) should return [1, 2].
+    Waiting: 3. find_target([1, 3, 5, 6, 7, 8], 15) should return [4, 5].
+    Waiting: 4. find_target([1, 3, 5, 7], 14) should return 'Target not found'.
+'''
