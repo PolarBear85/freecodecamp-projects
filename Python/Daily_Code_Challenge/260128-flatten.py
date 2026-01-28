@@ -1,0 +1,27 @@
+def flatten(arr):
+    result = []
+
+    for item in arr:
+        if isinstance(item,list):
+            result.extend(flatten(item))
+        else:
+            result.append(item)
+    return result
+
+
+
+print(flatten([["red", ["blue", ["green", ["yellow", ["purple"]]]]], "orange", ["pink", ["brown"]]]))
+
+'''
+latten the Array
+Given an array that contains nested arrays, return a new array with all values flattened into a single, one-dimensional array. Retain the original order of the items in the arrays.
+
+
+Tests
+Waiting:1. flatten([1, [2, 3], 4]) should return [1, 2, 3, 4].
+Waiting:2. flatten([5, [4, [3, 2]], 1]) should return [5, 4, 3, 2, 1].
+Waiting:3. flatten(["A", [[[["B"]]]], "C"]) should return ["A", "B", "C"].
+Waiting:4. flatten([["L", "M", "N"], ["O", ["P", "Q", ["R", ["S", ["T", "U"]]]]], "V", ["W", ["X", ["Y", ["Z"]]]]]) should return ["L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"].
+Waiting:5. flatten([["red", ["blue", ["green", ["yellow", ["purple"]]]]], "orange", ["pink", ["brown"]]]) should return ["red","blue","green","yellow","purple","orange","pink","brown"].
+
+'''
