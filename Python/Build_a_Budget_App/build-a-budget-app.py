@@ -57,30 +57,12 @@ class Category:
         return funds>=amount
 
 def create_spend_chart(categories):
-    total_deposits = 0
-    category_spend = []
-    graph_data = []
 
-    print("NOTICE ME!!!!!!!!!!")
-    for category in categories:
-        this_ledger = category.ledger
-        category_amount = 0
-        for item in this_ledger:
-            amount = item['amount']
-            print(amount)
-            if amount > 0:
-                print("Positive")
-                total_deposits += amount
-                category_amount += amount
 
-        category_spend.append({'category':category.name,'amount':category_amount})      
-    print(total_deposits)
-    print(category_spend)
-
-    for category in category_spend:
-        graph_data.append({'category':category['category'],'percentage':math.floor((category['amount']/total_deposits)*100)})
-    
-    print(graph_data)
+#build the vertical axis labels
+#build the horizontal bar
+#build the category labels
+#populate the data
 
 
 food = Category('Food')
