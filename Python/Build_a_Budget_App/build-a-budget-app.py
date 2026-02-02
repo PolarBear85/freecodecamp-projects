@@ -57,8 +57,35 @@ class Category:
         return funds>=amount
 
 def create_spend_chart(categories):
+    total_by_category = []
+    total_spend = 0
 
+    for category in categories:
+        print("I AM HERE")
+        this_spend = 0
+        this_ledger = category.ledger
+        for spend in this_ledger:
+            print(spend['amount'])
+            if spend['amount'] < 0:
+                print("SPEND AMOUNTS")
+                print(abs(spend['amount']))
+                this_spend += abs(spend['amount'])
+                total_spend += abs(spend['amount'])
+                print("THIS TOTAL RUN")
+                print(this_spend)
+                print("TOTAL TOTAL RUN")
+                print(total_spend)
+        total_by_category.append(
+            {'category':category.name,
+            'total spend': this_spend})
+    print(total_by_category)
 
+    for spend_data in total_by_category:
+        current_spend = spend_data['total spend']
+        print("PERCENTAGE")
+
+        percentage_spend = round((current_spend/total_spend)*10)*10
+        print(percentage_spend,percentage_raw)
 #build the vertical axis labels
 #build the horizontal bar
 #build the category labels
