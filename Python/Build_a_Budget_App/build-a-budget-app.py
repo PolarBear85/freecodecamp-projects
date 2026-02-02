@@ -59,33 +59,74 @@ class Category:
 def create_spend_chart(categories):
     total_by_category = []
     total_spend = 0
+    longest_category = 0
+    graph_data = ""
+    graph_data += "Percentage spent by category\n"
 
+### populate the total spend and the spend by category
     for category in categories:
-        print("I AM HERE")
         this_spend = 0
         this_ledger = category.ledger
         for spend in this_ledger:
-            print(spend['amount'])
             if spend['amount'] < 0:
-                print("SPEND AMOUNTS")
-                print(abs(spend['amount']))
                 this_spend += abs(spend['amount'])
                 total_spend += abs(spend['amount'])
-                print("THIS TOTAL RUN")
-                print(this_spend)
-                print("TOTAL TOTAL RUN")
-                print(total_spend)
+
         total_by_category.append(
             {'category':category.name,
             'total spend': this_spend})
-    print(total_by_category)
 
+### Calculate the percentage for each category and the longest category name
     for spend_data in total_by_category:
         current_spend = spend_data['total spend']
-        print("PERCENTAGE")
-
         percentage_spend = round((current_spend/total_spend)*10)*10
-        print(percentage_spend,percentage_raw)
+        spend_data['percentage']=percentage_spend
+        if len(spend_data['category']) > longest_category:
+            longest_category = len(spend_data['category'])
+
+    print("Longest category is ", longest_category)
+
+###Add the vertical axis to the graph string
+
+    graph_top = 100
+    while graph_top > 0:
+        graph_data+=f"{graph_top:>3}|"
+        graph_top -= 10
+        for item in total_by_category:
+            if item['percentage'] >= graph_top:
+                graph_data+=" o "
+            else:
+                graph_data+="   "
+        graph_data+="\n"
+    
+    
+
+###add horizontal axis to the graph string
+    graph_data += "\n\n"
+    graph_data +="    "
+    graph_data += "---"*len(total_by_category)
+    graph_data+= "\n"
+
+### Add horizonal labels to graph data
+
+    carriage = 0
+
+    while carriage <= longest_category:
+        graph_data+="    "
+
+        for item in total_by_category:
+            item_name = item['category']
+            if carriage < len(item_name):
+                
+                graph_data+=f" {item_name[carriage]} "
+            else:
+                graph_data+="   "
+        graph_data+="\n"
+        carriage+=1
+
+
+    print(graph_data)
+    return(graph_data)  
 #build the vertical axis labels
 #build the horizontal bar
 #build the category labels
@@ -97,7 +138,7 @@ food.deposit(1000, 'deposit')
 food.check_funds(999)
 food.withdraw(100000.15, 'groceries')
 food.withdraw(15.89, 'restaurant and more food for dessert')
-#food.get_balance()
+food.get_balance()
 clothing = Category('Clothing')
 food.transfer(50, clothing)
 print(food)
