@@ -1,0 +1,26 @@
+def adjust_thermostat(temp, target):
+
+    if temp < target:
+        return "heat"
+    elif temp > target:
+        return "cool"
+    else:
+        return "hold"
+
+
+'''
+Thermostat Adjuster
+Given the current temperature of a room and a target temperature, return a string indicating how to adjust the room temperature based on these constraints:
+
+Return "heat" if the current temperature is below the target.
+Return "cool" if the current temperature is above the target.
+Return "hold" if the current temperature is equal to the target.
+
+Tests
+Passed:1. adjust_thermostat(68, 72) should return "heat".
+Passed:2. adjust_thermostat(75, 72) should return "cool".
+Passed:3. adjust_thermostat(72, 72) should return "hold".
+Passed:4. adjust_thermostat(-20.5, -10.1) should return "heat".
+Passed:5. adjust_thermostat(100, 99.9) should return "cool".
+Passed:6. adjust_thermostat(0.0, 0.0) should return "hold".
+'''
