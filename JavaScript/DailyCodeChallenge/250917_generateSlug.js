@@ -1,3 +1,23 @@
+
+function generateSlug(str) {
+
+  const nonAlphaNumeric = /[^A-Z0-9\s]/gi
+
+ const answer = str.toLowerCase()
+                    .replace(nonAlphaNumeric,"")
+                    .trim()
+                    .replace(/\s+/g,"%20")
+
+  console.log(answer)
+  return answer;
+}
+
+generateSlug("  ?H^3-1*1]0! W[0%R#1]D  ")
+
+
+
+
+// OLD CODE FROM FIRST TRY
 function generateSlug(str) {
 
     const trimString = str.trim().toLowerCase();
