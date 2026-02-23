@@ -44,20 +44,24 @@ class Rectangle():
     def get_picture(self)->str:
 
         if self._height > 50 or self._width > 50:
-            return "Too big for picture"
+            return "Too big for picture."
         else:
             image = ""
             for row in range(self._height):
                 image += "*" * self._width +"\n"
             return image
 
-    def get_amount_inside(self,shape)->int:
-        pass
+    def get_amount_inside(self,shape:"Rectangle")->int:
+        print("Trying to fit")
+        width_inside = self._width // shape._width
+        height_inside = self._height // shape._height
+        return height_inside * width_inside 
+
 
 
 class Square(Rectangle):
     def __init__(self,side):
-        super().__init__
+        super().__init__(width=side,height=side)
         self._width = side
         self._height = side
         self._side = side
@@ -66,28 +70,57 @@ class Square(Rectangle):
         return f"Square(side={self._side})"
 
     def set_side(self,side):
+        print("Setting a side")
+        print(f"side will be {side}")
         self.set_height(side)
         self.set_width(side)
+        self._side = side
+        print(f"Side is now {self._side}")
 
-rect = Rectangle(3, 6)
-print(rect.get_diagonal())
+    def set_height(self,height:int):
+        if height <= 0:
+            raise ValueError("Height must be more than 0")
+        else:
+            self._height = height
+            self._width = height
+            self._side = height
+
+    def set_width(self,width):
+        if width<= 0:
+            raise ValueError("Width must be more than 0")
+        else:
+            self._height = width
+            self._width = width
+            self._side = width
+
+#rect = Rectangle(3, 6)
+#print(rect.get_diagonal())
+#print(Rectangle(15,10).get_amount_inside(Square(5)))
 #rect.set_height(3)
 #print(rect.get_perimeter())
 #print(rect)
 #print(rect.get_picture())
-'''
-sq = Square(9)
-print(sq.get_area())
-sq.set_side(4)
-print(sq.get_diagonal())
-print(sq)
+
+#sq = Square(9)
+#print(sq.get_area())
+#sq.set_side(51)
+#print(sq.get_diagonal())
+#print(sq)
+#print(sq.get_picture())
+
+#rect.set_height(8)
+#rect.set_width(16)
+#print(rect.get_amount_inside(sq))
+
+
+rect = Rectangle(4,8)
+print(rect.get_picture())
+sq = Square(4)
 print(sq.get_picture())
 
-rect.set_height(8)
-rect.set_width(16)
 print(rect.get_amount_inside(sq))
 
-'''
+
 
 
 '''
