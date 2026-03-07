@@ -3,8 +3,12 @@ def nth_prime(n):
     # Rosser's Theorem bound
     ln_n = math.log(n)
     ln_ln_n = math.log(ln_n)
-    
-    upper_limit = int(n * (ln_n + ln_ln_n))
+
+    if n> 6:
+
+        upper_limit = int(n * (ln_n + ln_ln_n))
+    else:
+        upper_limit = n*10
     upper_sqrt = math.sqrt(upper_limit)
 
     prime_arr = [True] * (upper_limit + 1)
@@ -13,7 +17,7 @@ def nth_prime(n):
 
     list_length = len(prime_arr)
     top_bound = int(math.sqrt(list_length))
-    for check in range(0,top_bound):
+    for check in range(0,top_bound+1):
         if prime_arr[check] == True:
             for not_prime in range(check*check,list_length,check):
                 prime_arr[not_prime] = False
@@ -30,7 +34,7 @@ def nth_prime(n):
     return all_primes[n-1]
 
 
-print(nth_prime(10))
+print(nth_prime(5))
 
 '''
 Nth Prime
@@ -39,9 +43,9 @@ A prime number is a positive integer greater than 1 that is divisible only by 1 
 Given a positive integer n, return the nth prime number. For example, given 5 return the 5th prime number: 11.
 
 Tests
-Passed:1. nth_prime(5) should return 11.
-Passed:2. nth_prime(10) should return 29.
-Passed:3. nth_prime(16) should return 53.
-Passed:4. nth_prime(99) should return 523.
-Passed:5. nth_prime(1000) should return 7919.
+Passed: 1. nth_prime(5) should return 11.
+Passed: 2. nth_prime(10) should return 29.
+Passed: 3. nth_prime(16) should return 53.
+Passed: 4. nth_prime(99) should return 523.
+Passed: 5. nth_prime(1000) should return 7919.
 '''
