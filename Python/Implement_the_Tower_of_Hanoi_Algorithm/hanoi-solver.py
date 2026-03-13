@@ -1,46 +1,78 @@
 def hanoi_solver(n):
-    peg_1 = list(range(n,0,-1))
-    peg_2 = []
-    peg_3 = []
 
-    print(peg_1,peg_2,peg_3)
-    toh_mover(n,peg_1,peg_2,peg_3)
+    pegs = [
+        list(range(n,0,-1)),
+        [],
+        []
+    ]
 
-    print(peg_1,peg_2,peg_3)
+    #print(pegs)
+    answer = f"{pegs[0]} {pegs[1]} {pegs[2]}"
 
+    answer += hanoi_mover(n,pegs[0],pegs[1],pegs[2],pegs)
 
-
-    '''
-    move 0 - N = 3 [3,2,1][][]
-    move -1 - N = 2 [3,2,1][][]
-
-    MOVE 1 - N= 1 [3,2][][1]
-    Move 2 - N=2 [3][2][1]
-    move 3 - N= 1 [3][2,1][]
-    move 4 - N = 3 [][2,1][3]
-    move 5 - N = 1 [1][2][3]
-    move 6 - N = 2 [1][][3,2]
-    move 7 - N = 1 [][][3,2,1]
+    print(answer)
+    return answer
 
 
-    
-    
-    
-    
-    
-    
-    '''
 
-def toh_mover(n,src,inter,dest):
+
+
+def hanoi_mover(n,src,inter,dest,pegs):
+
     if n == 1:
-        src.pop()
-        dest.append(n)
+        disk = src.pop()
+        dest.append(disk)
+        #print(f"\n{pegs[0]}{pegs[1]}{pegs[2]}")
+        return f"\n{pegs[0]} {pegs[1]} {pegs[2]}"
     else:
-        toh_mover(n-1,src,dest,inter)
-        src.pop()
-        dest.append(n)
-        toh_mover(n-1,inter,src,dest)
+        string_1 = hanoi_mover(n-1,src,dest,inter,pegs)
+        disk = src.pop()
+        dest.append(disk)
+        string_2 = f"\n{pegs[0]} {pegs[1]} {pegs[2]}"
+        #print(f"\n{pegs[0]}{pegs[1]}{pegs[2]}")
+        string_3 = hanoi_mover(n-1,inter,src,dest,pegs)
+        return string_1+string_2+string_3
 
 
+        
 
-hanoi_solver(3)
+hanoi_solver(2)
+
+'''
+Implement the Tower of Hanoi Algorithm
+In this lab, you will solve the mathematical puzzle known as the Tower of Hanoi. The puzzle consists of three rods and a number of disks of different diameters.
+
+sequence of moves required to solve a 3-disks tower of Hanoi puzzle
+The puzzle starts with the disks piled up on the first rod, in decreasing size, with the smallest disk on top and the largest disk on the bottom.
+
+The goal of the Tower of Hanoi puzzle is moving all the disks to the last rod. To do that, you must follow three simple rules:
+
+You can move only top-most disks.
+You can move only one disk at a time.
+You cannot place larger disks on top of smaller ones.
+Objective: Fulfill the user stories below and get all the tests to pass to complete the lab.
+
+User Stories:
+
+You should have a function named hanoi_solver that takes an integer representing the total number of disks of the puzzle as the argument.
+The hanoi_solver function should solve the puzzle following the given rules in 2n - 1 moves, where n is the total number of disks.
+The hanoi_solver function should return a string with all the moves taken to solve the puzzle, including the starting arrangement, with each move on a new line. Rods should be represented as lists of integers, (the smallest disk is represented by the number 1) with each rod separated by a space. For example, hanoi_solver(3) should return the following:
+[3, 2, 1] [] []
+[3, 2] [] [1]
+[3] [2] [1]
+[3] [2, 1] []
+[] [2, 1] [3]
+[1] [2] [3]
+[1] [] [3, 2]
+[] [] [3, 2, 1]
+Tests:
+Passed:1. You should have a function named hanoi_solver.
+Passed:2. Your hanoi_solver function should take a single argument.
+Passed:3. Your hanoi_solver function should return a string.
+Passed:4. hanoi_solver(2) should return [2, 1] [] []\n[2] [1] []\n[] [1] [2]\n[] [] [2, 1].
+Passed:5. hanoi_solver(3) should return [3, 2, 1] [] []\n[3, 2] [] [1]\n[3] [2] [1]\n[3] [2, 1] []\n[] [2, 1] [3]\n[1] [2] [3]\n[1] [] [3, 2]\n[] [] [3, 2, 1].
+Passed:6. hanoi_solver(4) should return [4, 3, 2, 1] [] []\n[4, 3, 2] [1] []\n[4, 3] [1] [2]\n[4, 3] [] [2, 1]\n[4] [3] [2, 1]\n[4, 1] [3] [2]\n[4, 1] [3, 2] []\n[4] [3, 2, 1] []\n[] [3, 2, 1] [4]\n[] [3, 2] [4, 1]\n[2] [3] [4, 1]\n[2, 1] [3] [4]\n[2, 1] [] [4, 3]\n[2] [1] [4, 3]\n[] [1] [4, 3, 2]\n[] [] [4, 3, 2, 1].
+Passed:7. hanoi_solver(5) should return [5, 4, 3, 2, 1] [] []\n[5, 4, 3, 2] [] [1]\n[5, 4, 3] [2] [1]\n[5, 4, 3] [2, 1] []\n[5, 4] [2, 1] [3]\n[5, 4, 1] [2] [3]\n[5, 4, 1] [] [3, 2]\n[5, 4] [] [3, 2, 1]\n[5] [4] [3, 2, 1]\n[5] [4, 1] [3, 2]\n[5, 2] [4, 1] [3]\n[5, 2, 1] [4] [3]\n[5, 2, 1] [4, 3] []\n[5, 2] [4, 3] [1]\n[5] [4, 3, 2] [1]\n[5] [4, 3, 2, 1] []\n[] [4, 3, 2, 1] [5]\n[1] [4, 3, 2] [5]\n[1] [4, 3] [5, 2]\n[] [4, 3] [5, 2, 1]\n[3] [4] [5, 2, 1]\n[3] [4, 1] [5, 2]\n[3, 2] [4, 1] [5]\n[3, 2, 1] [4] [5]\n[3, 2, 1] [] [5, 4]\n[3, 2] [] [5, 4, 1]\n[3] [2] [5, 4, 1]\n[3] [2, 1] [5, 4]\n[] [2, 1] [5, 4, 3]\n[1] [2] [5, 4, 3]\n[1] [] [5, 4, 3, 2]\n[] [] [5, 4, 3, 2, 1].
+Passed:8. hanoi_solver(n) should solve the tower of Hanoi puzzle for any positive value of n.
+'''
