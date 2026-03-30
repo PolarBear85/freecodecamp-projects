@@ -1,31 +1,26 @@
 def dfs (matrix,node):
 
-    stack = []
-
-#ESTABLISH TOTAL NODES IN MATRIX
-    total_nodes = len(matrix) ** 2
-    print(total_nodes)
-
-#PRINT MATRIX FOR VISUAL AID
+    #PRINT MATRIX FOR VISUAL AID
     for line in matrix:
         print(line)
 
-    if node < 0 or node >= total_nodes:
-        raise ValueError("Node value incorrect")
+    visited = []
+    
+    def find_connection(matrix,node,done):
+        done.append(node)
+        for next_node,connection in enumerate(matrix[node]):
+            if connection == 1 and next_node not in done:
+                find_connection(matrix,next_node,done)
 
-    start_row = node // len(matrix)
-    start_col = node % len(matrix)
-
-    print(start_row,start_col)
-
-
-
+    find_connection(matrix,node,visited)
+    print(visited)
+    return visited
     
 
 
 dfs([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]], 1)
-print("BREAK")
-dfs([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]], 3)
+#print("BREAK")
+#dfs([[0, 1, 0, 0], [1, 0, 1, 0], [0, 1, 0, 1], [0, 0, 1, 0]], 3)
 
 
 
