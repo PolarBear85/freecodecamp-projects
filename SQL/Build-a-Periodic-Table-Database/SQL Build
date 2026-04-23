@@ -1,0 +1,29 @@
+CREATE TABLE types(
+    type_id SERIAL PRIMARY KEY,
+    type VARCHAR(50) NOT NULL
+);
+
+INSERT INTO types(type) VALUES
+('nonmetal'),
+('metal'),
+('metalloid');
+
+
+#Script to capitalise elements
+SELECT CONCAT(UPPER(LEFT(symbol,1)), LOWER(RIGHT(symbol,-1))) FROM elements;
+UPDATE elements SET symbol=CONCAT(UPPER(LEFT(symbol,1)), LOWER(RIGHT(symbol,-1)));
+
+#script to update atomic mass
+ALTER TABLE properties ALTER COLUMN atomic_mass TYPE NUMERIC;
+SELECT atomic_mass::FLOAT::NUMERIC FROM properties;
+UPDATE properties SET atmoic_mass=atomic_mass::FLOAT::NUMERIC;
+
+
+#Add elements
+INSERT INTO elements(atomic_number,name,symbol) VALUES
+(9,'Fluorine','F'),
+(10,'Neon','Ne');
+
+INSERT INTO properties(atomic_number,type,atomic_mass,melting_point_celsius,boiling_point_celsius,type_id) VALUES
+(9,'nonmetal',18.998,-220,-188.1,1),
+(10,'nonmetal',20.18,-248.6,-246.1,1)
