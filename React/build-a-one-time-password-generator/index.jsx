@@ -1,79 +1,85 @@
 const { useState, useEffect, useRef } = React;
 
+
 export const OTPGenerator = () => {
 
-
-
 //useState hooks
-  const [thisOTP, setOTP] = useState("")
-  const [thisTimer, setTimer] = useState(0)
+const [thisOTP, newOTP] = useState(null)
+const [thisTimer, setTimer] = useState(null)
 
 //useEffect hooks
 useEffect(() => {
   if (thisTimer > 0) {
     const timeoutId = setTimeout(() => {
       setTimer(thisTimer - 1);
-    },1000);
+
+    },1000)
     return () => clearTimeout(timeoutId)
   }
-}, [thisTimer]);
+},[thisTimer])
 
 
 //event handler
-  const handleGenerate = () => {
-    setOTP(generateOTP())
-    setTimer(5)
-    //setButton(!buttonState)
-  }
+const handleGenerate = () => {
+  newOTP(generateOTP())
+  setTimer(5)
+}
 
-//generate OTP function
-const generateOTP = () => {
-  const codeArr = []
-  for (let x = 0; x<= 5; x++) {
-    const number = Math.floor(Math.random()*9+1)
+//helper function for OTP Display
+const renderOTPDisplay = () => {
+  if (thisTimer === null) {
+    return "Click 'Generate OTP' to get a code"
+  }
+  return thisOTP
+};
+
+//helper function for countdown Display
+const renderCountdown = () => {
+  if (thisTimer === null) {
+    return
+  }
+  if (thisTimer === 0) {
+    return "OTP expired. Click the button to generate a new OTP."
+  }
+  return `Expires in: ${thisTimer} seconds`
+}
+
+//Generate code function
+function generateOTP() {
+  const codeArr =[]
+  for (let x = 0; x<=5; x++) {
+    const number = Math.floor(Math.random()*10)
     codeArr.push(number)
   }
   return codeArr.join("")
 }
 
-  return(
-    <div class="container">
+
+//HTML code
+
+  return (
+
+    <div className="container">
       <h1 id="otp-title">OTP Generator</h1>
+        <h2 id="otp-display">
+          {renderOTPDisplay()}
+        </h2>
 
-      {thisOTP.length < 6 ? 
-      (<h2 id="otp-display">
-       Click 'Generate OTP' to get a code
-      </h2>
-      )
-      :
-      (
-        <h2>{thisOTP}</h2>
-      )
-      }
-
-      {thisTimer == 0 ?
-      (<p id="otp-timer" aria-live="assertive">
-          OTP expired. Click the button to generate a new OTP.
+        <p id="otp-timer" aria-live="polite">
+          {renderCountdown()}
         </p>
-        )
-        :
-        (
-        <p id="otp-timer" aria-live="assertive">
-          Expires in: {thisTimer} seconds
-        </p>
-        )
-
-      }
-
 
 
       <button 
       id="generate-otp-button"
-      onClick={handleGenerate}>
+      onClick={handleGenerate}
+      disabled={thisTimer>0}>
         Generate OTP
       </button>
 
     </div>
-    )
+
+  )
+
 
 };
