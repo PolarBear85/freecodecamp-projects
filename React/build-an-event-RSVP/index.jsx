@@ -35,7 +35,7 @@ export function EventRSVPForm() {
 
       <div className="form-group">
         <label id="name-label" htmlFor="name-input">Name:
-          <input 
+          <input required
             type="text" 
             id="name-input"
             placeholder="Your Name"
@@ -47,7 +47,7 @@ export function EventRSVPForm() {
 
       <div className="form-group">
         <label id="mail-label" htmlFor="mail-input">Email:
-          <input 
+          <input required
             type="email" 
             id="mail-input"
             placeholder="Your Email"
@@ -58,7 +58,8 @@ export function EventRSVPForm() {
 
       <div className="form-group">
         <label id="people-label" htmlFor="people-input">Number of Attendees:
-          <input 
+          <input required
+            min="1"
             type="number" 
             id="people-input"
             onChange={e => handleAttendees(e)}
